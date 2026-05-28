@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-[#0a0a0a]">
+<html lang="en" class="h-full bg-[#0a0b0d]">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,308 +7,414 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        .gold-gradient-border {
-            border: 1px solid transparent;
-            background-image: linear-gradient(#121212, #121212), linear-gradient(to bottom right, #d4af37, #aa7c11);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-        }
+        
+        /* Custom scrollbar to keep it clean */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f1115; }
+        ::-webkit-scrollbar-thumb { background: #22252d; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2c303b; }
+
+        /* iOS Style Toggle Switch Switches */
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; inset: 0; background-color: #22252d; transition: .3s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+        input:checked + .slider { background-color: #facc15; }
+        input:checked + .slider:before { transform: translateX(20px); }
     </style>
 </head>
-<body class="h-full text-zinc-300 flex flex-col justify-between">
+<body class="h-full text-zinc-300 flex flex-col justify-between overflow-x-hidden">
 
     <!-- Premium Minimal Header -->
-    <header class="border-b border-zinc-900 bg-[#0a0a0a] px-8 py-4 flex justify-between items-center z-10">
+    <header class="border-b border-zinc-900 bg-[#0a0b0d] px-6 py-4 flex justify-between items-center z-10">
         <div class="flex items-center space-x-3">
-            <div class="w-2 h-2 rounded-full bg-[#d4af37]"></div>
-            <span class="text-xs font-semibold tracking-[0.2em] text-white uppercase">AI Cash Lab // Creator Utilities</span>
+            <!-- Brand Logo Mark Placeholder matched with text guidelines -->
+            <div class="w-6 h-6 rounded bg-[#facc15] flex items-center justify-center text-black font-bold text-xs tracking-tighter">⚡</div>
+            <div class="flex items-baseline space-x-2">
+                <span class="text-sm font-bold tracking-wider text-white uppercase">AI Cash Lab</span>
+                <span class="text-[10px] font-semibold tracking-widest text-zinc-500 uppercase">Creator Tools</span>
+            </div>
         </div>
-        <nav class="flex space-x-6 text-xs tracking-wider text-zinc-500">
-            <span class="text-[#d4af37] cursor-default font-medium">TikTok Mobile V1</span>
-            <span class="hover:text-zinc-300 transition cursor-not-allowed">IG Reels (Soon)</span>
-            <span class="hover:text-zinc-300 transition cursor-not-allowed">YT Shorts (Soon)</span>
+        <nav class="flex items-center space-x-6 text-xs font-medium tracking-wider">
+            <span class="text-[#facc15] border-b-2 border-[#facc15] pb-4 -mb-4 cursor-default">TikTok (Mobile)</span>
+            <span class="text-zinc-500 hover:text-zinc-300 transition cursor-not-allowed">IG Reels</span>
+            <span class="text-zinc-500 hover:text-zinc-300 transition cursor-not-allowed">YT Shorts</span>
+            <button class="text-zinc-400 hover:text-white transition pl-4 border-l border-zinc-800">
+                <i data-lucide="sun" class="w-4 h-4"></i>
+            </button>
         </nav>
     </header>
 
-    <!-- Main Production Workspace -->
-    <main class="flex-1 flex flex-col lg:flex-row p-6 gap-6 overflow-hidden max-w-[1600px] w-full mx-auto">
+    <!-- Main Production Workspace Blueprint -->
+    <main class="flex-1 flex flex-col xl:flex-row p-6 gap-5 overflow-hidden max-w-[1800px] w-full mx-auto">
         
-        <!-- Left Pane: Interactive Canvas Viewport -->
-        <div class="flex-1 bg-[#0f0f0f] border border-zinc-900 rounded-lg flex items-center justify-center relative p-4 group overflow-auto min-h-[450px]">
-            
-            <!-- Drag & Drop Interactive Input Box -->
-            <div id="dropzone" class="border border-dashed border-zinc-800 hover:border-zinc-700 rounded-lg p-8 max-w-sm w-full text-center transition cursor-pointer bg-[#0c0c0c]">
-                <i data-lucide="clapperboard" class="mx-auto h-8 w-8 text-zinc-500 mb-3 stroke-[1.5]"></i>
-                <h3 class="text-sm font-medium text-zinc-200 mb-1">Upload mobile content asset</h3>
-                <p class="text-xs text-zinc-500 mb-4">Supports vertical video frames, hooks, or image designs</p>
-                <button class="px-4 py-2 bg-zinc-900 border border-zinc-800 rounded text-xs font-medium text-zinc-300 hover:bg-zinc-800 transition">Select File</button>
+        <!-- ================= LEFT COLUMN PANEL ================= -->
+        <div class="w-full xl:w-64 flex flex-col gap-4 shrink-0">
+            <!-- Main Drag and Drop Interface Container -->
+            <div id="dropzone" class="bg-[#111318] border border-zinc-900 rounded-xl p-5 text-center transition hover:border-zinc-800 cursor-pointer flex flex-col items-center justify-center h-64">
+                <div class="w-12 h-12 rounded-full bg-zinc-900 flex items-center justify-center mb-4 border border-zinc-800">
+                    <i data-lucide="upload-cloud" class="h-5 w-5 text-[#facc15]"></i>
+                </div>
+                <h3 class="text-xs font-semibold text-white mb-1">Drag & drop your image</h3>
+                <p class="text-xs font-semibold text-white mb-2">or video frame</p>
+                <p class="text-[10px] text-zinc-500 mb-4">Supports JPG, PNG, WEBP<br>Max 20MB</p>
+                <button class="w-full py-2 bg-[#facc15] hover:bg-[#eab308] text-black font-bold text-xs rounded-lg transition">Choose File</button>
                 <input type="file" id="fileInput" class="hidden" accept="image/*">
             </div>
 
-            <!-- Real-Time Composite Interactive Workspace Wrapper -->
-            <div id="canvasContainer" class="hidden relative shadow-2xl overflow-hidden bg-black max-h-full aspect-[9/16]">
-                <img id="previewImage" class="max-h-[70vh] object-contain select-none pointer-events-none" src="" alt="Creator Upload Canvas">
-                
-                <!-- Dynamic SVG Target Layer Matrix -->
-                <div id="overlayWrapper" class="absolute inset-0 select-none pointer-events-none opacity-80 transition-opacity duration-150">
-                    <!-- Base Template Grid Layout Frame injection via JavaScript JS rendering engine -->
+            <!-- Context Prompt Tip Widget Box -->
+            <div class="bg-[#111318] border border-zinc-900 rounded-xl p-4 flex items-start space-x-3">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-[#facc15] shrink-0 mt-0.5"></i>
+                <p class="text-[11px] text-zinc-400 leading-relaxed"><span class="font-semibold text-white">Tip:</span> Export your frame as 9:16 for best results.</p>
+            </div>
+
+            <!-- Static Cheat Sheet Specification Matrix -->
+            <div class="bg-[#111318] border border-zinc-900 rounded-xl p-4 mt-auto">
+                <div class="flex items-center space-x-2 text-[10px] font-bold tracking-wider uppercase text-zinc-400 mb-3">
+                    <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-[#facc15]"></i>
+                    <span>Safe Zone Cheat Sheet</span>
+                </div>
+                <span class="text-[10px] font-semibold text-zinc-500 block mb-3">TikTok / Reels / Shorts</span>
+                <div class="space-y-2 text-[11px] font-mono">
+                    <div class="flex justify-between"><span class="text-emerald-400">● Safe Zone (Text)</span><span class="text-zinc-500">1080 x 1420 px</span></div>
+                    <div class="flex justify-between"><span class="text-rose-400">● Right Icons Area</span><span class="text-zinc-500">120 px</span></div>
+                    <div class="flex justify-between"><span class="text-purple-400">● Bottom Caption Area</span><span class="text-zinc-500">400 px</span></div>
+                    <div class="flex justify-between"><span class="text-blue-400">● Top Header Area</span><span class="text-zinc-500">120 px</span></div>
+                    <div class="h-px bg-zinc-900 my-2"></div>
+                    <div class="flex justify-between text-zinc-400"><span>Canvas (Rec.)</span><span>1080 x 1920 px</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- Right Pane: Operational Control Deck -->
-        <aside class="w-full lg:w-96 flex flex-col gap-4 overflow-y-auto pr-1">
+        <!-- ================= CENTER WORKSPACE PANEL ================= -->
+        <div class="flex-1 bg-[#111318]/40 border border-zinc-900 rounded-xl flex flex-col relative overflow-hidden min-h-[500px]">
             
-            <!-- Control Bracket Area 1: Active Interactive Interface Layers -->
-            <div class="bg-[#0f0f0f] border border-zinc-900 rounded-lg p-5">
-                <h2 class="text-xs font-semibold tracking-wider text-white uppercase mb-4 flex items-center">
-                    <i data-lucide="layers" class="w-3.5 h-3.5 mr-2 text-[#d4af37] stroke-[2]"></i> App UI Elements
-                </h2>
-                <div class="space-y-3.5">
-                    <label class="flex items-center justify-between group cursor-pointer">
-                        <span class="text-xs text-zinc-400 group-hover:text-zinc-200 transition">Right-Side Interaction Icons</span>
-                        <input type="checkbox" id="toggleIcons" checked class="w-3.5 h-3.5 accent-[#d4af37] bg-zinc-900 border-zinc-800 rounded">
-                    </label>
-                    <label class="flex items-center justify-between group cursor-pointer">
-                        <span class="text-xs text-zinc-400 group-hover:text-zinc-200 transition">Description & Caption Area</span>
-                        <input type="checkbox" id="toggleCaptions" checked class="w-3.5 h-3.5 accent-[#d4af37] bg-zinc-900 border-zinc-800 rounded">
-                    </label>
-                    <label class="flex items-center justify-between group cursor-pointer">
-                        <span class="text-xs text-zinc-400 group-hover:text-zinc-200 transition">Top Navigation Header Tabs</span>
-                        <input type="checkbox" id="toggleHeader" checked class="w-3.5 h-3.5 accent-[#d4af37] bg-zinc-900 border-zinc-800 rounded">
-                    </label>
-                </div>
-
-                <!-- Global Opacity Controller Block -->
-                <div class="mt-6 pt-5 border-t border-zinc-900/80">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs text-zinc-400">Overlay Transparency</span>
-                        <span id="opacityVal" class="text-[10px] font-mono tracking-wide bg-zinc-900 px-1.5 py-0.5 rounded text-zinc-500">80%</span>
-                    </div>
-                    <input type="range" id="opacitySlider" min="0" max="100" value="80" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#d4af37]">
-                </div>
-            </div>
-
-            <!-- Control Bracket Area 2: Faceless Infrastructure Optimization Matrix -->
-            <div class="bg-[#0f0f0f] border border-zinc-900 rounded-lg p-5">
-                <h2 class="text-xs font-semibold tracking-wider text-white uppercase mb-3.5 flex items-center">
-                    <i data-lucide="target" class="w-3.5 h-3.5 mr-2 text-[#d4af37] stroke-[2]"></i> Strategy Layout Presets
-                </h2>
-                <p class="text-[11px] text-zinc-500 mb-4 leading-relaxed">Map your content assets instantly to high-retention structural frames optimized to bypass clipping boundaries.</p>
+            <!-- Main Sandbox Display Viewport Area -->
+            <div class="flex-1 flex items-center justify-center p-6 relative overflow-auto">
                 
+                <!-- Dynamic Graphic State Layout Architecture -->
+                <div id="canvasContainer" class="relative shadow-2xl transition-all duration-200 aspect-[9/16] bg-[#111318] border border-zinc-900 rounded-md w-[320px] sm:w-[360px] md:w-[380px] lg:w-[400px] xl:w-[410px]">
+                    
+                    <!-- Pre-upload Empty Mockup State Component Layout Grid -->
+                    <div id="emptyState" class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-0">
+                        <i data-lucide="image" class="h-14 w-14 text-zinc-700 stroke-[1] mb-4"></i>
+                        <h4 class="text-xs font-semibold text-zinc-300 mb-1">Your preview will appear here</h4>
+                        <p class="text-[11px] text-zinc-500">Upload an image or video frame to get started.</p>
+                    </div>
+
+                    <!-- Client User Image Element Node -->
+                    <img id="previewImage" class="absolute inset-0 w-full h-full object-contain select-none pointer-events-none opacity-0 z-10" src="" alt="Creator Asset Area">
+                    
+                    <!-- Core Interactive Overlay Layer Matrix -->
+                    <div id="overlayWrapper" class="absolute inset-0 select-none pointer-events-none z-20 w-full h-full">
+                        <!-- Custom Programmatic SVG elements populate directly here via engine loop execution -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Interactive Floating Canvas Controls Panel -->
+            <div class="border-t border-zinc-900 bg-[#111318] px-4 py-3 flex justify-between items-center z-30">
+                <div class="flex items-center space-x-1.5 bg-[#0a0b0d] border border-zinc-900 rounded-lg p-0.5">
+                    <button id="zoomOut" class="w-7 h-7 flex items-center justify-center rounded hover:bg-zinc-900 text-zinc-400 hover:text-white transition"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button>
+                    <span id="zoomVal" class="text-[10px] font-mono px-2 text-zinc-400 select-none">Fit</span>
+                    <button id="zoomIn" class="w-7 h-7 flex items-center justify-center rounded hover:bg-zinc-900 text-zinc-400 hover:text-white transition"><i data-lucide="plus" class="w-3.5 h-3.5"></i></button>
+                </div>
+                <button id="resetWorkspace" class="px-3 py-1.5 bg-[#0a0b0d] hover:bg-zinc-900 border border-zinc-900 rounded-lg text-xs font-medium text-zinc-400 hover:text-white flex items-center space-x-1.5 transition">
+                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                    <span>Reset</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= RIGHT COLUMN CONTROL PANEL ================= -->
+        <div class="w-full xl:w-96 flex flex-col gap-4 shrink-0">
+            
+            <!-- Panel 1: Interactive Overlay Control Settings -->
+            <div class="bg-[#111318] border border-zinc-900 rounded-xl p-5">
+                <div class="flex items-center space-x-2 text-xs font-bold tracking-wider text-white uppercase mb-5">
+                    <i data-lucide="eye" class="w-4 h-4 text-[#facc15]"></i>
+                    <span>Overlay Toggles</span>
+                </div>
+                <div class="space-y-4">
+                    <!-- Toggle 0: Core Target Canvas Guidelines Overlay -->
+                    <div class="flex items-start justify-between">
+                        <div class="pr-4">
+                            <span class="text-xs font-semibold text-zinc-200 flex items-center"><span class="w-2 h-2 rounded-full bg-emerald-400 mr-2"></span>Safe Zone (Text)</span>
+                            <p class="text-[10px] text-zinc-500 mt-0.5">Where your text & hooks should stay</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="toggleSafeZone" checked><span class="slider"></span></label>
+                    </div>
+                    <!-- Toggle 1: Right Side Interactive Elements Icons -->
+                    <div class="flex items-start justify-between">
+                        <div class="pr-4">
+                            <span class="text-xs font-semibold text-zinc-200 flex items-center"><span class="w-2 h-2 rounded-full bg-rose-400 mr-2"></span>Right-Side Icons</span>
+                            <p class="text-[10px] text-zinc-500 mt-0.5">Like, Comment, Share, Profile</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="toggleIcons" checked><span class="slider"></span></label>
+                    </div>
+                    <!-- Toggle 2: Bottom Text Profile Descriptions Block -->
+                    <div class="flex items-start justify-between">
+                        <div class="pr-4">
+                            <span class="text-xs font-semibold text-zinc-200 flex items-center"><span class="w-2 h-2 rounded-full bg-purple-400 mr-2"></span>Bottom Caption</span>
+                            <p class="text-[10px] text-zinc-500 mt-0.5">Description & Audio Title Area</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="toggleCaptions" checked><span class="slider"></span></label>
+                    </div>
+                    <!-- Toggle 3: Top Navigation Tab UI Layout -->
+                    <div class="flex items-start justify-between">
+                        <div class="pr-4">
+                            <span class="text-xs font-semibold text-zinc-200 flex items-center"><span class="w-2 h-2 rounded-full bg-blue-400 mr-2"></span>Top Navigation</span>
+                            <p class="text-[10px] text-zinc-500 mt-0.5">Following / For You Tabs</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="toggleHeader" checked><span class="slider"></span></label>
+                    </div>
+                </div>
+
+                <!-- Live Opacity Slider Component Box -->
+                <div class="mt-6 pt-5 border-t border-zinc-900">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-semibold text-zinc-300">Overlay Opacity</span>
+                        <span id="opacityVal" class="text-xs font-semibold text-white">80%</span>
+                    </div>
+                    <input type="range" id="opacitySlider" min="0" max="100" value="80" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#facc15]">
+                </div>
+            </div>
+
+            <!-- Panel 2: Strategy Content Mapping Placement Targets -->
+            <div class="bg-[#111318] border border-zinc-900 rounded-xl p-5">
+                <div class="flex items-center space-x-2 text-xs font-bold tracking-wider text-white uppercase mb-4">
+                    <i data-lucide="layout" class="w-4 h-4 text-[#facc15]"></i>
+                    <span>Strategy Presets</span>
+                </div>
                 <div class="space-y-2">
-                    <button id="presetNone" class="w-full text-left px-3 py-2.5 rounded text-xs bg-zinc-950 border border-zinc-900 text-[#d4af37] font-medium flex items-center transition hover:border-zinc-800">
-                        <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] mr-2.5"></span> Standard Structural Mode
+                    <button id="presetStandard" class="w-full text-left p-3 rounded-xl text-xs bg-[#1a1d24] border border-[#facc15]/30 text-white flex items-start transition">
+                        <i data-lucide="star" class="w-4 h-4 text-[#facc15] mr-3 shrink-0 mt-0.5"></i>
+                        <div>
+                            <span class="font-semibold block">Standard Hook Layout</span>
+                            <span class="text-[10px] text-zinc-400 mt-0.5 block">Best for text hooks & subtitles</span>
+                        </div>
                     </button>
-                    <button id="presetHook" class="w-full text-left px-3 py-2.5 rounded text-xs bg-zinc-900/40 border border-zinc-900 text-zinc-400 flex items-center transition hover:bg-zinc-900 hover:text-zinc-200">
-                        <span class="w-1.5 h-1.5 rounded-full bg-zinc-700 mr-2.5"></span> Retention Hook Zone (Top 1/3)
+                    <button id="presetSubtitle" class="w-full text-left p-3 rounded-xl text-xs bg-zinc-900/20 border border-zinc-900 text-zinc-400 flex items-start transition hover:bg-zinc-900/50 hover:text-zinc-200">
+                        <i data-lucide="edit-3" class="w-4 h-4 mr-3 shrink-0 mt-0.5 text-zinc-500"></i>
+                        <div>
+                            <span class="font-semibold block text-zinc-300">Faceless Subtitle Layout</span>
+                            <span class="text-[10px] text-zinc-500 mt-0.5 block">Center-weighted for captions</span>
+                        </div>
                     </button>
-                    <button id="presetSubtitle" class="w-full text-left px-3 py-2.5 rounded text-xs bg-zinc-900/40 border border-zinc-900 text-zinc-400 flex items-center transition hover:bg-zinc-900 hover:text-zinc-200">
-                        <span class="w-1.5 h-1.5 rounded-full bg-zinc-700 mr-2.5"></span> Faceless Subtitle Matrix (Center Anchor)
+                    <button id="presetQuote" class="w-full text-left p-3 rounded-xl text-xs bg-zinc-900/20 border border-zinc-900 text-zinc-400 flex items-start transition hover:bg-zinc-900/50 hover:text-zinc-200">
+                        <i data-lucide="help-circle" class="w-4 h-4 mr-3 shrink-0 mt-0.5 text-zinc-500"></i>
+                        <div>
+                            <span class="font-semibold block text-zinc-300">Quote Video Layout</span>
+                            <span class="text-[10px] text-zinc-500 mt-0.5 block">Big text, high readability</span>
+                        </div>
                     </button>
                 </div>
             </div>
 
-            <!-- Control Bracket Area 3: Premium Native Toolkit Upsell Gateway -->
-            <div class="gold-gradient-border rounded-lg p-5 mt-auto bg-[#0c0c0c]/90">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-[10px] uppercase tracking-widest text-[#d4af37] font-medium">System Diagnosis</span>
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <!-- Panel 3: Highly Strategic Native Resolution Funnel Accent -->
+            <div class="border border-[#facc15]/20 bg-[#111318] rounded-xl p-4 mt-auto flex items-center justify-between shadow-xl">
+                <div class="flex items-center space-x-3 max-w-[65%]">
+                    <div class="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center shrink-0 border border-zinc-800">
+                        <i data-lucide="zap" class="w-4 h-4 text-[#facc15]"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-semibold text-white mb-0.5">Need to resize, reposition, or optimize this asset?</h4>
+                        <p class="text-[10px] text-zinc-500 leading-normal">Use our AI Image Size Checker & Resizer to instantly fix your content for any platform.</p>
+                    </div>
                 </div>
-                <h3 class="text-xs font-semibold text-white mb-1.5">Assets Clipping or Out of Bounds?</h3>
-                <p class="text-[11px] text-zinc-400 leading-relaxed mb-4">Don't waste time going back to your canvas workspace to eyeball manual transformations. Conform and force your graphic assets into platform-perfect structures automatically.</p>
-                <a href="#" class="block w-full text-center py-2 bg-[#d4af37] hover:bg-[#b8952e] text-black font-semibold text-xs rounded transition shadow-md">
-                    Unlock Creator Optimization Resizer ($9)
+                <a href="#" class="px-3 py-2 bg-[#facc15] hover:bg-[#eab308] text-black font-bold text-[11px] rounded-lg transition shrink-0 flex items-center space-x-1">
+                    <span>Try the Resizer</span>
+                    <i data-lucide="arrow-right" class="w-3 h-3"></i>
                 </a>
             </div>
-        </aside>
+        </div>
     </main>
 
-    <!-- Global System Footer Component -->
-    <footer class="border-t border-zinc-900 bg-[#0a0a0a] px-8 py-3 flex flex-col sm:flex-row justify-between items-center text-[10px] text-zinc-600 gap-2">
-        <p>&copy; 2026 AI Cash Lab. All rights secured locally. Files remain entirely in your browser client.</p>
-        <div class="flex space-x-4">
-            <span class="hover:text-zinc-400 transition cursor-help">Technical Documentation</span>
-            <span class="hover:text-zinc-400 transition cursor-help">Platform Standards (2026)</span>
+    <!-- Global Layout System Footer Component -->
+    <footer class="border-t border-zinc-900 bg-[#0a0b0d] px-6 py-4 flex flex-col sm:flex-row justify-between items-center text-[11px] text-zinc-600 gap-2">
+        <p>&copy; 2026 AI Cash Lab. All rights reserved.</p>
+        <div class="flex space-x-6">
+            <span class="hover:text-zinc-400 transition cursor-pointer">Privacy Policy</span>
+            <span class="hover:text-zinc-400 transition cursor-pointer">Terms</span>
+            <span class="hover:text-zinc-400 transition cursor-pointer">Contact</span>
         </div>
     </footer>
 
-    <!-- Runtime JavaScript Interaction Logic Script Matrix -->
+    <!-- Runtime JavaScript Interaction Logic Processing Matrix -->
     <script>
-        // DOM Workspace Interface Node Pointers
+        // DOM Node Target Pointers
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('fileInput');
         const canvasContainer = document.getElementById('canvasContainer');
         const previewImage = document.getElementById('previewImage');
         const overlayWrapper = document.getElementById('overlayWrapper');
+        const emptyState = document.getElementById('emptyState');
+        
+        // Control Matrix Elements
         const opacitySlider = document.getElementById('opacitySlider');
         const opacityVal = document.getElementById('opacityVal');
-
-        // Interface Layer Toggle Switches
+        const toggleSafeZone = document.getElementById('toggleSafeZone');
         const toggleIcons = document.getElementById('toggleIcons');
         const toggleCaptions = document.getElementById('toggleCaptions');
         const toggleHeader = document.getElementById('toggleHeader');
 
-        // Layout Preset Selector Nodes
-        const btnNone = document.getElementById('presetNone');
-        const btnHook = document.getElementById('presetHook');
+        // Layout Target Selection Management Buttons
+        const btnStandard = document.getElementById('presetStandard');
         const btnSubtitle = document.getElementById('presetSubtitle');
+        const btnQuote = document.getElementById('presetQuote');
+        const resetWorkspace = document.getElementById('resetWorkspace');
+        const zoomIn = document.getElementById('zoomIn');
+        const zoomOut = document.getElementById('zoomOut');
+        const zoomVal = document.getElementById('zoomVal');
 
-        // Initialize Global Vector Layout Properties
-        let currentPreset = 'none';
+        let currentPreset = 'standard';
+        let zoomScale = 1.0;
 
-        // Initialize Lucide Vector Icons Bundle
+        // Initialize Lucide Icons Vector Matrix
         lucide.createIcons();
 
-        // Register Workspace User Action Event Handlers
+        // Canvas Media Action Processing Implementation Block
         dropzone.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', handleFileTransfer);
+        fileInput.addEventListener('change', handleMediaStreamInput);
         
-        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('border-zinc-500'); });
-        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('border-zinc-500'));
+        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('border-[#facc15]'); });
+        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('border-[#facc15]'));
         dropzone.addEventListener('drop', (e) => {
             e.preventDefault();
-            dropzone.classList.remove('border-zinc-500');
+            dropzone.classList.remove('border-[#facc15]');
             if (e.dataTransfer.files.length) {
                 fileInput.files = e.dataTransfer.files;
-                handleFileTransfer();
+                handleMediaStreamInput();
             }
         });
 
-        // Handle Client Media Processing Engine
-        function handleFileTransfer() {
+        function handleMediaStreamInput() {
             const file = fileInput.files[0];
             if (file && file.type.startsWith('image/')) {
-                const urlReader = new FileReader();
-                urlReader.onload = function(event) {
+                const streamReader = new FileReader();
+                streamReader.onload = function(event) {
                     previewImage.src = event.target.result;
-                    dropzone.classList.add('hidden');
-                    canvasContainer.classList.remove('hidden');
-                    renderOverlayEngine();
+                    previewImage.classList.remove('opacity-0');
+                    emptyState.classList.add('hidden');
+                    renderVectorLayoutEngine();
                 }
-                urlReader.readAsDataURL(file);
+                streamReader.readAsDataURL(file);
             }
         }
 
-        // Real-Time Configurable Platform UI Overlay Renderer
-        function renderOverlayEngine() {
+        // Programmatic Dynamic Canvas Vector Engine Loop
+        function renderVectorLayoutEngine() {
+            const showSafe = toggleSafeZone.checked;
             const showIcons = toggleIcons.checked;
             const showCaptions = toggleCaptions.checked;
             const showHeader = toggleHeader.checked;
 
-            // Render vector dimensions matching TikTok guidelines
-            let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" class="w-full h-full absolute inset-0">`;
+            let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" class="w-full h-full absolute inset-0 select-none pointer-events-none">`;
 
-            // Preset Layer 1: Strategy Hook Zone Boundary
-            if (currentPreset === 'hook') {
-                svgContent += `
-                    <g opacity="0.35">
-                        <rect x="60" y="200" width="960" height="350" fill="#d4af37" fill-opacity="0.1" stroke="#d4af37" stroke-width="4" stroke-dasharray="8 8"/>
-                        <text x="540" y="390" fill="#d4af37" font-size="36" font-weight="600" text-anchor="middle" letter-spacing="2">OPTIMAL HOOK SAFE ZONE</text>
-                    </g>`;
+            // Canvas Vector Configuration Layer 0: Safe Box Grid Guides
+            if (showSafe) {
+                svg += `<rect x="60" y="140" width="960" height="1380" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="8 6" opacity="0.8"/>
+                        <text x="540" y="200" fill="#34d399" font-size="24" font-weight="600" text-anchor="middle" opacity="0.5">Safe Zone (Text)</text>`;
             }
 
-            // Preset Layer 2: Strategy Centered Subtitle Boundary
-            if (currentPreset === 'subtitle') {
-                svgContent += `
-                    <g opacity="0.35">
-                        <rect x="140" y="810" width="800" height="300" fill="#d4af37" fill-opacity="0.1" stroke="#d4af37" stroke-width="4" stroke-dasharray="8 8"/>
-                        <text x="540" y="970" fill="#d4af37" font-size="36" font-weight="600" text-anchor="middle" letter-spacing="2">HIGH-RETENTION TEXT ZONE</text>
-                    </g>`;
-            }
-
-            // Interface Vector Components: Account Discovery Elements
+            // Canvas Vector Configuration Layer 1: App Interface Header Element
             if (showHeader) {
-                svgContent += `
-                    <g id="ui-header" fill="white" opacity="0.9">
-                        <text x="320" y="120" font-size="34" font-weight="500" opacity="0.6" text-anchor="middle">Following</text>
-                        <text x="540" y="120" font-size="36" font-weight="600" text-anchor="middle">For You</text>
-                        <line x1="500" y1="150" x2="580" y2="150" stroke="#white" stroke-width="5" stroke-linecap="round"/>
-                        <circle cx="980" cy="110" r="22" fill="none" stroke="white" stroke-width="4"/>
-                        <path d="M972 110 h16 M980 102 v16" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                svg += `
+                    <g opacity="0.85">
+                        <rect x="0" y="0" width="1080" height="140" fill="black" fill-opacity="0.2"/>
+                        <rect x="60" y="0" width="960" height="140" fill="none" stroke="#60a5fa" stroke-width="3" stroke-dasharray="6 4" opacity="0.6"/>
+                        <text x="540" y="90" fill="#60a5fa" font-size="26" font-weight="600" text-anchor="middle">Top Header</text>
                     </g>`;
             }
 
-            // Interface Vector Components: Functional Interaction Panel
+            // Canvas Vector Configuration Layer 2: Right Hand Utility Control Rails
             if (showIcons) {
-                svgContent += `
-                    <g id="ui-engagement-panel" transform="translate(930, 950)" fill="white" text-anchor="middle" font-size="22" font-weight="500">
-                        <!-- User Profile Circle Avatar Anchor -->
-                        <circle cx="30" cy="-280" r="48" fill="#222" stroke="white" stroke-width="3"/>
-                        <circle cx="30" cy="-232" r="14" fill="#ff0050"/>
-                        <path d="M24 -232 h12 M30 -238 v12" stroke="white" stroke-width="3"/>
-                        
-                        <!-- Engagement Components Nodes -->
-                        <path d="M12 -140 c-15-20-40-5-40 20 0 30 40 60 40 60 s40-30 40-60 c0-25-25-40-40-20z" fill="white"/>
-                        <text x="30" y="-45">412.8K</text>
-                        
-                        <path d="M-10 30 h60 v45 h-45 l-15 15 z" fill="white"/>
-                        <text x="30" y="115">2841</text>
-                        
-                        <path d="M0 180 h40 l20 20 v-40 h-60 z" fill="white"/>
-                        <text x="30" y="245">56.2K</text>
-                        
-                        <path d="M0 310 l40 20 l20-40 h-60 z" fill="white"/>
-                        <text x="30" y="375">12.4K</text>
-                        
-                        <!-- Sound Record Loop Component -->
-                        <circle cx="30" cy="460" r="35" fill="#222" stroke="zinc" stroke-width="4"/>
-                        <circle cx="30" cy="460" r="15" fill="black"/>
+                svg += `
+                    <g opacity="0.85">
+                        <rect x="910" y="550" width="130" height="850" fill="none" stroke="#f43f5e" stroke-width="3" stroke-dasharray="6 4" opacity="0.6"/>
+                        <!-- Text Rotation Logic Placeholder Matrix Simulation -->
+                        <text x="975" y="975" fill="#f43f5e" font-size="24" font-weight="600" text-anchor="middle" transform="rotate(90,975,975)">Right Icons</text>
                     </g>`;
             }
 
-            // Interface Vector Components: Information Metrics
+            // Canvas Vector Configuration Layer 3: Lower Description Tracking Track
             if (showCaptions) {
-                svgContent += `
-                    <g id="ui-description-metadata" transform="translate(40, 1550)" fill="white" font-size="28">
-                        <text x="0" y="0" font-weight="600" font-size="32" letter-spacing="0.5">@aicashlab</text>
-                        <text x="0" y="45" opacity="0.92" font-size="26">Why 97% of faceless accounts fail in the first 14 days...</text>
-                        <text x="0" y="85" fill="#d4af37" font-weight="500" font-size="25">#facelesscreator #ai #digitalproducts</text>
-                        <g transform="translate(0, 125)" opacity="0.7">
-                            <path d="M0 10 h25 v-15 h10 v15 h25" fill="none" stroke="white" stroke-width="4"/>
-                            <text x="75" y="15" font-size="24">Original Audio - @aicashlab</text>
-                        </g>
-                    </g>
-                    <!-- Core Stream Timeline Bar Metric -->
-                    <rect x="0" y="1912" width="1080" height="8" fill="white" fill-opacity="0.3"/>
-                    <rect x="0" y="1912" width="340" height="8" fill="white" fill-opacity="0.8"/>`;
+                svg += `
+                    <g opacity="0.85">
+                        <rect x="0" y="1520" width="1080" height="400" fill="black" fill-opacity="0.3"/>
+                        <rect x="60" y="1520" width="960" height="340" fill="none" stroke="#c084fc" stroke-width="3" stroke-dasharray="6 4" opacity="0.6"/>
+                        <text x="540" y="1710" fill="#c084fc" font-size="26" font-weight="600" text-anchor="middle">Bottom Caption</text>
+                    </g>`;
             }
 
-            svgContent += `</svg>`;
-            overlayWrapper.innerHTML = svgContent;
+            // Custom Content Architectural Anchor Node Presets 
+            if (currentPreset === 'standard') {
+                svg += `<rect x="140" y="320" width="800" height="360" fill="#facc15" fill-opacity="0.04" stroke="#facc15" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>`;
+            } else if (currentPreset === 'subtitle') {
+                svg += `<rect x="140" y="860" width="800" height="260" fill="#facc15" fill-opacity="0.04" stroke="#facc15" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>`;
+            } else if (currentPreset === 'quote') {
+                svg += `<rect x="100" y="480" width="880" height="800" fill="#facc15" fill-opacity="0.04" stroke="#facc15" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>`;
+            }
+
+            svg += `</svg>`;
+            overlayWrapper.innerHTML = svg;
         }
 
-        // Live Real-Time Property Modifier Adjustments
+        // Live Real-Time Property Controls Execution Functions
         opacitySlider.addEventListener('input', (e) => {
-            const opacityLevel = e.target.value;
-            opacityVal.textContent = `${opacityLevel}%`;
-            overlayWrapper.style.opacity = opacityLevel / 100;
+            const level = e.target.value;
+            opacityVal.textContent = `${level}%`;
+            overlayWrapper.style.opacity = level / 100;
         });
 
-        [toggleIcons, toggleCaptions, toggleHeader].forEach(toggle => {
-            toggle.addEventListener('change', renderOverlayEngine);
+        [toggleSafeZone, toggleIcons, toggleCaptions, toggleHeader].forEach(element => {
+            element.addEventListener('change', renderVectorLayoutEngine);
         });
 
-        // Workspace Strategy Layout Manager Actions
-        function changeActivePresetStyle(selectedButton, targetPreset) {
-            [btnNone, btnHook, btnSubtitle].forEach(btn => {
-                btn.classList.replace('bg-zinc-950', 'bg-zinc-900/40');
-                btn.classList.replace('text-[#d4af37]', 'text-zinc-400');
-                btn.querySelector('span').classList.replace('bg-[#d4af37]', 'bg-zinc-700');
+        // Interface Preset Selection Styling Updates 
+        function triggerPresetStyleSwap(activeButton, targetSelectionName) {
+            [btnStandard, btnSubtitle, btnQuote].forEach(btn => {
+                btn.className = "w-full text-left p-3 rounded-xl text-xs bg-zinc-900/20 border border-zinc-900 text-zinc-400 flex items-start transition hover:bg-zinc-900/50 hover:text-zinc-200";
+                const icon = btn.querySelector('svg');
+                icon.className.baseVal = "w-4 h-4 mr-3 shrink-0 mt-0.5 text-zinc-500";
             });
-            selectedButton.classList.replace('bg-zinc-900/40', 'bg-zinc-950');
-            selectedButton.classList.replace('text-zinc-400', 'text-[#d4af37]');
-            selectedButton.querySelector('span').classList.replace('bg-zinc-700', 'bg-[#d4af37]');
+            activeButton.className = "w-full text-left p-3 rounded-xl text-xs bg-[#1a1d24] border border-[#facc15]/30 text-white flex items-start transition";
+            activeButton.querySelector('svg').className.baseVal = "w-4 h-4 text-[#facc15] mr-3 shrink-0 mt-0.5";
             
-            currentPreset = targetPreset;
-            renderOverlayEngine();
+            currentPreset = targetSelectionName;
+            renderVectorLayoutEngine();
         }
 
-        btnNone.addEventListener('click', () => changeActivePresetStyle(btnNone, 'none'));
-        btnHook.addEventListener('click', () => changeActivePresetStyle(btnHook, 'hook'));
-        btnSubtitle.addEventListener('click', () => changeActivePresetStyle(btnSubtitle, 'subtitle'));
+        btnStandard.addEventListener('click', () => triggerPresetStyleSwap(btnStandard, 'standard'));
+        btnSubtitle.addEventListener('click', () => triggerPresetStyleSwap(btnSubtitle, 'subtitle'));
+        btnQuote.addEventListener('click', () => triggerPresetStyleSwap(btnQuote, 'quote'));
+
+        // Workspace Canvas Control Logic Functions
+        zoomIn.addEventListener('click', () => {
+            if(zoomScale < 1.4) { zoomScale += 0.1; applyCanvasZoomTransformation(); }
+        });
+        zoomOut.addEventListener('click', () => {
+            if(zoomScale > 0.7) { zoomScale -= 0.1; applyCanvasZoomTransformation(); }
+        });
+        function applyCanvasZoomTransformation() {
+            canvasContainer.style.transform = `scale(${zoomScale})`;
+            zoomVal.textContent = zoomScale === 1.0 ? 'Fit' : `${Math.round(zoomScale * 100)}%`;
+        }
+
+        resetWorkspace.addEventListener('click', () => {
+            previewImage.src = "";
+            previewImage.classList.add('opacity-0');
+            emptyState.classList.remove('hidden');
+            fileInput.value = "";
+            overlayWrapper.innerHTML = "";
+            zoomScale = 1.0;
+            applyCanvasZoomTransformation();
+        });
+
+        // Initialize Active Template Engine Rendering State
+        renderVectorLayoutEngine();
     </script>
 </body>
 </html>
